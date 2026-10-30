@@ -1,0 +1,34 @@
+{
+  "name": "neurostart-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=production tsx watch --tsconfig=tsconfig.server.json api/boot.ts",
+    "build": "esbuild api/boot.ts --platform=node --bundle --format=esm --outdir=dist --alias:@db=./db --alias:@contracts=./contracts --banner:js=\"import { createRequire } from 'module';const require = createRequire(import.meta.url);\"",
+    "start": "cross-env NODE_ENV=production node dist/boot.js",
+    "check": "tsc -p tsconfig.server.json",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx --tsconfig=tsconfig.server.json db/seed.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.5",
+    "@trpc/server": "^11.8.1",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.8.3",
+    "mysql2": "^3.14.1",
+    "superjson": "^2.2.6",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "cross-env": "^10.1.0",
+    "drizzle-kit": "^0.31.8",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3"
+  }
+}
